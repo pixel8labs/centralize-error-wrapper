@@ -23,6 +23,7 @@ type (
 	errCentralizeWrapper struct {
 		bundler *i18n.Bundle
 		errHolderWrapper
+		lang string
 	}
 
 	ErrOptions map[string]interface{}

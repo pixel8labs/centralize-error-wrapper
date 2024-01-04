@@ -1,7 +1,6 @@
 package centricerrorwrapper
 
 import (
-	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -12,23 +11,23 @@ import (
 	"github.com/nicksnyder/go-i18n/v2/i18n"
 )
 
-func New(ctx context.Context, errID ErrID, option ...ErrOptions) errWrapper {
+func New(errID ErrID, option ...ErrOptions) errWrapper {
 	errVHolder, ok := errHolder.errHolderWrapper[errID]
 	if !ok {
 		return defaultErr
 	}
 
-	errVHolder.Message = errHolder.getMessage(ctx, errID, option...)
+	errVHolder.Message = errHolder.getMessage(errID, option...)
 	return errVHolder
 }
 
-func Wrap(ctx context.Context, err error, errID ErrID, option ...ErrOptions) errWrapper {
+func Wrap(err error, errID ErrID, option ...ErrOptions) errWrapper {
 	errVHolder, ok := errHolder.errHolderWrapper[errID]
 	if !ok {
 		return defaultErr
 	}
 
-	errVHolder.Message = errHolder.getMessage(ctx, errID, option...)
+	errVHolder.Message = errHolder.getMessage(errID, option...)
 	errVHolder.error = err
 	return errVHolder
 }
@@ -53,15 +52,19 @@ func Cast(err error) *errWrapper {
 	return &errWrapper{error: err}
 }
 
+func SetLang(lang string) {
+	errHolder.lang = lang
+}
+
 // Private function.
 // Helper.
-func (e *errHolderWrapper) getMessage(ctx context.Context, errID ErrID, option ...ErrOptions) string {
+func (e *errHolderWrapper) getMessage(errID ErrID, option ...ErrOptions) string {
 	var opt ErrOptions
 	if len(option) > 0 {
 		opt = option[0]
 	}
 
-	localizer := i18n.NewLocalizer(errHolder.bundler, errHolder.getLang(ctx))
+	localizer := i18n.NewLocalizer(errHolder.bundler, errHolder.lang)
 	locale, _, err := localizer.LocalizeWithTag(&i18n.LocalizeConfig{
 		MessageID:    string(errID),
 		TemplateData: opt,
@@ -72,16 +75,6 @@ func (e *errHolderWrapper) getMessage(ctx context.Context, errID ErrID, option .
 	}
 
 	return locale
-}
-func (e *errHolderWrapper) getLang(ctx context.Context) string {
-	lang := ctx.Value(httpHeaderAcceptLanguage)
-	langStr, ok := lang.(string)
-
-	if !ok {
-		return defaultLang
-	}
-
-	return langStr
 }
 
 // Override from base-errs function.

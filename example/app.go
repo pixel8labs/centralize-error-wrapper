@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"errors"
 	"fmt"
 
@@ -16,14 +15,12 @@ func main() {
 		return
 	}
 
-	ctx := context.Background()
-	ctx = context.WithValue(ctx, "Accept-Lang", "en")
-
+	centricerrorwrapper.SetLang("id")
 	// Invoke.
-	errMarshal := centricerrorwrapper.New(ctx, centricerrorwrapper.ErrIDMarshall, centricerrorwrapper.ErrOptions{
+	errMarshal := centricerrorwrapper.New(centricerrorwrapper.ErrIDMarshall, centricerrorwrapper.ErrOptions{
 		"variable": "data",
 	})
-	errUnmarshal := centricerrorwrapper.Wrap(ctx, errors.New("error happened"), centricerrorwrapper.ErrIDMarshall, centricerrorwrapper.ErrOptions{
+	errUnmarshal := centricerrorwrapper.Wrap(errors.New("error happened"), centricerrorwrapper.ErrIDMarshall, centricerrorwrapper.ErrOptions{
 		"variable": "data2",
 	})
 

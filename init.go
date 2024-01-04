@@ -21,6 +21,7 @@ func NewCentralizeErrors() error {
 	errHolder = &errCentralizeWrapper{
 		errHolderWrapper: holderErr,
 		bundler:          bundle,
+		lang:             defaultLang,
 	}
 
 	return nil

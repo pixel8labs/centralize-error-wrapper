@@ -18,13 +18,13 @@ import "github.com/pixel8labs/centralize-error-wrapper"
 
 ```go
 // Wrap an error with additional context
-wrappedErr := centralizeerr.Wrap(ctx, originalErr, "Failed to perform operation")
+wrappedErr := centralizeerr.Wrap(originalErr, "Failed to perform operation")
 
 // Unwrap the error
 centralizeerr.Unwrap(wrappedErr)
 
 // Make a new error
-centralizeerr.New(ctx, Key)
+centralizeerr.New(Key)
 ```
 
 Elevate your Go projects by standardizing and customizing error handling
