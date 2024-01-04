@@ -1,0 +1,4 @@
+{
+    "ErrIDMarshal": "Terjadi kesalahan saat marshalling {{.variable}}",
+    "ErrIDUnmarshal": "Terjadi kesalahan saat unmarshalling {{.variable}}"
+}

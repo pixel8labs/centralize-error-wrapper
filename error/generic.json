@@ -1,0 +1,14 @@
+{
+    "ErrIDMarshal": {
+        "code": "1",
+        "is_retryable": false,
+        "http_status_code": 500,
+        "dev_message": "error when marshalling"
+    },
+    "ErrIDUnmarshal": {
+        "code": "2",
+        "is_retryable": false,
+        "http_status_code": 500,
+        "dev_message": "error when unmarshalling"
+    }
+}

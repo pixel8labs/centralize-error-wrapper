@@ -1,0 +1,4 @@
+{
+    "ErrIDMarshal": "Error when marshal {{.variable}}",
+    "ErrIDUnmarshal": "Error when unmarshall {{.variable}}"
+}
