@@ -20,7 +20,7 @@ func main() {
 	errMarshal := centricerrorwrapper.New(centricerrorwrapper.ErrIDMarshall, centricerrorwrapper.ErrOptions{
 		"variable": "data",
 	})
-	errUnmarshal := centricerrorwrapper.Wrap(errors.New("error happened"), centricerrorwrapper.ErrIDMarshall, centricerrorwrapper.ErrOptions{
+	errUnmarshal := centricerrorwrapper.Wrap(errors.New("error happened"), centricerrorwrapper.ErrIDUnmarshall, centricerrorwrapper.ErrOptions{
 		"variable": "data2",
 	})
 
@@ -33,5 +33,5 @@ func main() {
 		"unwrap",
 	)
 	fmt.Printf("%+v\n", cast.GetMessage())
-	fmt.Printf("%+v\n", errUnmarshal.GetErr())
+	fmt.Printf("%+v\n", errUnmarshal.GetMessage())
 }
