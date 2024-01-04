@@ -14,7 +14,7 @@ Simplify error handling in your Go projects with the Centralize Error Wrapper. A
 import "github.com/pixel8labs/centralize-error-wrapper"
 ```
 
-2. Wrap errors, log, and report effortlessly:
+2. Wrap errors, unwrap, and make a new err effortlessly:
 
 ```go
 // Wrap an error with additional context
