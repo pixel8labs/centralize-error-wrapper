@@ -15,7 +15,9 @@ func main() {
 		return
 	}
 
+	// Set language.
 	centricerrorwrapper.SetLang("id")
+
 	// Invoke.
 	errMarshal := centricerrorwrapper.New(centricerrorwrapper.ErrIDMarshall, centricerrorwrapper.ErrOptions{
 		"variable": "data",
