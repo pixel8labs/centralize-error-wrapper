@@ -7,12 +7,12 @@ func NewCentralizeErrors() error {
 		err          error
 	)
 
-	err = holderErr.normalizeErrWrapper(errPath)
+	err = holderErr.normalizeWrapper(errPath)
 	if err != nil {
 		return err
 	}
 
-	bundle, err := holderLocale.normalizeLocaleWrapper(localePath)
+	bundle, err := holderLocale.normalizeWrapper(localePath)
 	if err != nil {
 		return err
 	}

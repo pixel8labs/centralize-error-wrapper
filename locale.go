@@ -9,7 +9,7 @@ import (
 	"golang.org/x/text/language"
 )
 
-func (e *localeHolderWrapper) normalizeLocaleWrapper(path string) (*i18n.Bundle, error) {
+func (e *localeHolderWrapper) normalizeWrapper(path string) (*i18n.Bundle, error) {
 	var (
 		err    error
 		bundle = i18n.NewBundle(language.English)

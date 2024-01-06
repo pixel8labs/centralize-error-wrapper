@@ -93,7 +93,7 @@ func (e errWrapper) Unwrap() error {
 }
 
 // Helper to construct the errors resource to a given struct.
-func (e *errHolderWrapper) normalizeErrWrapper(path string) error {
+func (e *errHolderWrapper) normalizeWrapper(path string) error {
 	var (
 		err error
 	)
