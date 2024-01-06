@@ -1,4 +1,4 @@
-package middleware
+package adapter
 
 import (
 	"net/http"
@@ -6,7 +6,7 @@ import (
 	centricerrorwrapper "github.com/pixel8labs/errorwrapper"
 )
 
-func LangMiddleware(next http.Handler) http.Handler {
+func LangAdapterMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		lang := defaultLang
 

@@ -1,19 +1,20 @@
 package example
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
 
 	centricerrorwrapper "github.com/pixel8labs/errorwrapper"
-	"github.com/pixel8labs/errorwrapper/middleware"
+	"github.com/pixel8labs/errorwrapper/middleware/adapter"
 )
 
 type userHandler struct{}
 
 func InitApi() {
 	mux := http.NewServeMux()
-	mux.Handle("/users/", middleware.LangMiddleware(&userHandler{}))
+	mux.Handle("/users/", adapter.LangAdapterMiddleware(&userHandler{}))
 
 	fmt.Println("Running on port: 8080")
 	http.ListenAndServe(":8080", mux)
@@ -21,23 +22,16 @@ func InitApi() {
 
 func (h *userHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// Invoke.
-	errMarshal := centricerrorwrapper.New(centricerrorwrapper.ErrIDMarshall, centricerrorwrapper.ErrOptions{
-		"variable": "data",
-	})
 	errUnmarshal := centricerrorwrapper.Wrap(errors.New("error happened"), centricerrorwrapper.ErrIDUnmarshall, centricerrorwrapper.ErrOptions{
 		"variable": "data2",
 	})
 
-	// (Optional) casting function.
-	cast := centricerrorwrapper.Cast(errMarshal)
+	// Would be done by every err-wrapper inside each-project.
+	errByte, _ := json.Marshal(errUnmarshal)
+	// Would be done by every err-wrapper inside each-project.
+	w.Header().Set("Content-Type", "application/json")
 
-	// Print result.
-	fmt.Println(
-		centricerrorwrapper.Unwrap(errUnmarshal),
-		"unwrap",
-	)
-	fmt.Printf("%+v\n", cast.GetMessage())
-	fmt.Printf("%+v\n", errUnmarshal.GetMessage())
-
-	w.Write([]byte(`{"message": "ok"}`))
+	// Set based on err data.
+	w.WriteHeader(errUnmarshal.StatusCode)
+	w.Write([]byte(errByte))
 }
