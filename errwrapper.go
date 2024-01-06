@@ -2,7 +2,6 @@ package centricerrorwrapper
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io/fs"
 	"os"
@@ -44,8 +43,8 @@ func Unwrap(err error) error {
 }
 
 func Cast(err error) *errWrapper {
-	var errVHolder errWrapper
-	if errors.As(err, &errVHolder) {
+	errVHolder, ok := err.(errWrapper)
+	if ok {
 		return &errVHolder
 	}
 
