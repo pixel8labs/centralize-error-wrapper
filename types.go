@@ -26,7 +26,14 @@ type (
 		lang string
 	}
 
-	ErrOptions map[string]interface{}
+	ErrOptions  map[string]interface{}
+	ErrResponse struct {
+		Code        string `json:"code"`
+		IsRetryable bool   `json:"is_retryable"`
+		Message     string `json:"message"`
+
+		error
+	}
 )
 
 var (

@@ -55,6 +55,15 @@ func SetLang(lang string) {
 	errHolder.lang = lang
 }
 
+func (err *errWrapper) ToResponse() ErrResponse {
+	return ErrResponse{
+		Code:        err.Code,
+		IsRetryable: err.IsRetryable,
+		Message:     err.Message,
+		error:       err.error,
+	}
+}
+
 // Private function.
 // Helper.
 func (e *errHolderWrapper) getMessage(errID ErrID, option ...ErrOptions) string {
