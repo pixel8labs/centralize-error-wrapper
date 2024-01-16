@@ -25,7 +25,7 @@ func (h *userHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	errUnmarshal := centricerrorwrapper.Wrap(errors.New("error happened"), centricerrorwrapper.ErrIDUnmarshall, centricerrorwrapper.ErrOptions{
 		"variable": "data2",
 	})
-	toResp := errUnmarshal.ToResponse()
+	toResp := errUnmarshal.Response()
 
 	// Would be done by every err-wrapper inside each-project.
 	errByte, _ := json.Marshal(toResp)
