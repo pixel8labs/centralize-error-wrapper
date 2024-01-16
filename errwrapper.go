@@ -55,15 +55,6 @@ func SetLang(lang string) {
 	errHolder.lang = lang
 }
 
-func (err *errWrapper) Response() ErrResponse {
-	return ErrResponse{
-		Code:        err.Code,
-		IsRetryable: err.IsRetryable,
-		Message:     err.Message,
-		error:       err.error,
-	}
-}
-
 // Private function.
 // Helper.
 func (e *errHolderWrapper) getMessage(errID ErrID, option ...ErrOptions) string {
@@ -83,6 +74,16 @@ func (e *errHolderWrapper) getMessage(errID ErrID, option ...ErrOptions) string 
 	}
 
 	return locale
+}
+
+// Base response for display any kind of errors.
+func (err *errWrapper) Response() ErrResponse {
+	return ErrResponse{
+		Code:        err.Code,
+		IsRetryable: err.IsRetryable,
+		Message:     err.Message,
+		error:       err.error,
+	}
 }
 
 // Override from base-errs function.
